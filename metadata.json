@@ -1,4 +1,5 @@
 {
   "name": "RichMan Fun",
-  "description": "A futuristic, AI-enhanced version of the classic property trading board game. Features dynamic AI commentary and event generation powered by Google Gemini."
+  "description": "A futuristic offline property trading board game. Features dynamic commentary and event generation.",
+  "requestFramePermissions": []
 }

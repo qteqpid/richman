@@ -50,7 +50,6 @@ const Board: React.FC<BoardProps> = ({ tiles, players }) => {
           RichMan
         </h1>
         <h2 className="text-2xl text-white font-thin tracking-[0.5em] opacity-80 select-none">FUN</h2>
-        <div className="mt-8 text-gray-600 text-xs animate-pulse">AI Thinking...</div>
       </div>
 
       {/* Tiles */}
