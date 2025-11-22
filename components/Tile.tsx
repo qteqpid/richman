@@ -1,24 +1,52 @@
+
 import React, { useMemo } from 'react';
 import { Tile as TileType, TileType as EnumTileType, Player } from '../types';
-import { Home, MapPin, AlertCircle, DollarSign, Lock, Zap, Car, Skull, HelpCircle, Database, Siren, Building2, Activity, User, Cpu, Bot, Smile, Crown, Rocket, Ghost, Gamepad2 } from 'lucide-react';
+import { 
+  Home, MapPin, AlertCircle, DollarSign, Lock, Zap, Car, Skull, HelpCircle, Database, Siren, Building2, Activity, User, Cpu, Bot, Smile, Crown, Rocket, Ghost, Gamepad2,
+  BookOpen, Utensils, PawPrint, GraduationCap, Library, Flame, Shield, Fish, Clapperboard, Landmark, ShoppingBag, Dumbbell, Ticket, Bed, Plane, Coffee, Train, Music, Pill
+} from 'lucide-react';
 
 interface TileProps {
   tile: TileType;
   playersOnTile: Player[];
   isCurrentTarget?: boolean;
   owner?: Player;
+  onClick?: (tile: TileType) => void;
 }
 
-const Tile: React.FC<TileProps> = ({ tile, playersOnTile, isCurrentTarget, owner }) => {
+const Tile: React.FC<TileProps> = ({ tile, playersOnTile, isCurrentTarget, owner, onClick }) => {
   
-  const isGoToJail = tile.id === 18;
+  const isGoToJail = tile.id === 24; 
 
   const getIcon = () => {
-    // Specific icons based on Name or Type
-    if (tile.name.includes("Power") || tile.name.includes("Solar") || tile.name.includes("Fusion")) return <Zap className="text-yellow-400" size={16} />;
-    if (tile.name.includes("Data") || tile.name.includes("Cyber")) return <Database className="text-blue-400" size={16} />;
+    // Specific icons based on Name
+    const name = tile.name.toLowerCase();
     
-    // Go To Jail handled separately now, but fallback just in case
+    // Ensure Mall gets Bag even if type changed
+    if (tile.type === EnumTileType.SHOPPING) return <ShoppingBag className="text-pink-400" size={16} />;
+    if (tile.type === EnumTileType.AIRPORT) return <Plane className="text-sky-300" size={16} />;
+
+    if (name.includes("book")) return <BookOpen className="text-amber-300" size={16} />;
+    if (name.includes("burger") || name.includes("bakery")) return <Utensils className="text-orange-400" size={16} />;
+    if (name.includes("coffee")) return <Coffee className="text-amber-700" size={16} />;
+    if (name.includes("subway")) return <Train className="text-gray-400" size={16} />;
+    if (name.includes("pet") || name.includes("zoo")) return <PawPrint className="text-yellow-600" size={16} />;
+    if (name.includes("school")) return <GraduationCap className="text-blue-300" size={16} />;
+    if (name.includes("library")) return <Library className="text-blue-400" size={16} />;
+    if (name.includes("fire")) return <Flame className="text-red-500" size={16} />;
+    if (name.includes("police")) return <Shield className="text-blue-500" size={16} />;
+    if (name.includes("pharmacy") || name.includes("clinic")) return <Pill className="text-teal-300" size={16} />;
+    if (name.includes("aquarium")) return <Fish className="text-cyan-400" size={16} />;
+    if (name.includes("cinema")) return <Clapperboard className="text-red-400" size={16} />;
+    if (name.includes("museum")) return <Landmark className="text-amber-200" size={16} />;
+    if (name.includes("music")) return <Music className="text-purple-300" size={16} />;
+    if (name.includes("gym")) return <Dumbbell className="text-gray-300" size={16} />;
+    if (name.includes("game") || name.includes("toy") || name.includes("arcade")) return <Gamepad2 className="text-green-400" size={16} />;
+    if (name.includes("candy")) return <Smile className="text-pink-500" size={16} />;
+    if (name.includes("park") && tile.type === EnumTileType.PROPERTY) return <Ticket className="text-green-400" size={16} />;
+    if (name.includes("hotel")) return <Bed className="text-indigo-300" size={16} />;
+    
+    // Fallback for Types
     if (isGoToJail) return <Siren className="text-red-500 animate-pulse" size={16} />;
 
     switch (tile.type) {
@@ -79,6 +107,21 @@ const Tile: React.FC<TileProps> = ({ tile, playersOnTile, isCurrentTarget, owner
             linear-gradient(to bottom, #1a0505, #000)
           `,
           boxShadow: 'inset 0 0 20px rgba(0,0,0,0.8)'
+        };
+      case EnumTileType.SHOPPING:
+        return {
+          background: `
+            radial-gradient(circle at center, rgba(255, 105, 180, 0.2) 0%, transparent 70%),
+            repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255, 192, 203, 0.05) 5px, rgba(255, 192, 203, 0.05) 10px),
+            #1a0a1a
+          `
+        };
+      case EnumTileType.AIRPORT:
+        return {
+            background: `
+              linear-gradient(180deg, #001a33 0%, #000000 100%),
+              repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(0, 191, 255, 0.1) 20px, rgba(0, 191, 255, 0.1) 22px)
+            `
         };
       case EnumTileType.PARKING:
         return {
@@ -149,7 +192,8 @@ const Tile: React.FC<TileProps> = ({ tile, playersOnTile, isCurrentTarget, owner
   
   return (
     <div 
-      className={`relative w-full h-full flex flex-col border ${baseBorderClass} ${glowClass} transition-all duration-300 overflow-hidden group select-none`}
+      onClick={() => onClick && onClick(tile)}
+      className={`relative w-full h-full flex flex-col border ${baseBorderClass} ${glowClass} transition-all duration-300 overflow-hidden group select-none cursor-pointer hover:scale-105 hover:z-30 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]`}
       style={{ ...backgroundStyle, ...ownerBorderStyle }}
     >
        {/* Dynamic Owner Overlay */}
@@ -188,7 +232,7 @@ const Tile: React.FC<TileProps> = ({ tile, playersOnTile, isCurrentTarget, owner
                    <path d="M-2 0 Q0 -8 2 0" strokeWidth="2" />
                 </g>
 
-                {/* Warning Lights Animation (simulated via CSS in component below, but drawing placeholders here) */}
+                {/* Warning Lights Animation */}
                 <circle cx="10" cy="10" r="2" fill="red" className="animate-ping" />
                 <circle cx="90" cy="10" r="2" fill="blue" className="animate-ping delay-75" />
             </svg>
@@ -206,7 +250,7 @@ const Tile: React.FC<TileProps> = ({ tile, playersOnTile, isCurrentTarget, owner
       )}
 
       {/* Color Bar for Properties */}
-      {tile.type === EnumTileType.PROPERTY && (
+      {tile.type === EnumTileType.PROPERTY && tile.colorGroup && (
         <div 
           className="h-1.5 w-full shadow-[0_0_10px_currentColor]" 
           style={{ backgroundColor: tile.colorGroup, color: tile.colorGroup, boxShadow: `0 0 8px ${tile.colorGroup}` }}
