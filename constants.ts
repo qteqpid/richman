@@ -46,13 +46,13 @@ export const INITIAL_TILES: Tile[] = [
   { id: 12, name: "Fire Station", type: TileType.PROPERTY, price: 140, baseRent: 10, colorGroup: COLORS.PINK },
   { id: 13, name: "Hospital", type: TileType.HOSPITAL, description: "Recover for 3 turns." },
   { id: 14, name: "Bakery", type: TileType.PROPERTY, price: 150, baseRent: 11, colorGroup: COLORS.PINK }, 
-  { id: 15, name: "Police Station", type: TileType.PROPERTY, price: 160, baseRent: 12, colorGroup: COLORS.PINK },
+  { id: 15, name: "Stock Exchange", type: TileType.STOCK_MARKET, description: "Buy/Sell Stocks" }, // Changed from Police Station
 
   // Corner (Top Left)
   { id: 16, name: "Free Parking", type: TileType.PARKING, description: "Rest here." },
 
   // Top Row (Left to Right): 17 to 24
-  { id: 17, name: "Toy Store", type: TileType.PROPERTY, price: 170, baseRent: 13, colorGroup: COLORS.ORANGE }, 
+  { id: 17, name: "Airport", type: TileType.AIRPORT, description: "Fly to Central Hub." }, 
   { id: 18, name: "Zoo", type: TileType.PROPERTY, price: 180, baseRent: 14, colorGroup: COLORS.ORANGE },
   { id: 19, name: "Chance", type: TileType.CHANCE },
   { id: 20, name: "Aquarium", type: TileType.PROPERTY, price: 200, baseRent: 15, colorGroup: COLORS.ORANGE },
@@ -95,5 +95,5 @@ export const INITIAL_TILES: Tile[] = [
   // Right Inner (Top to Bottom): 45-47
   { id: 45, name: "Space Bar", type: TileType.PROPERTY, price: 300, baseRent: 30, colorGroup: COLORS.GRAY },
   { id: 46, name: "Luxury Pods", type: TileType.PROPERTY, price: 350, baseRent: 35, colorGroup: COLORS.GRAY },
-  { id: 47, name: "Orbital Shuttle", type: TileType.PROPERTY, price: 400, baseRent: 50, colorGroup: COLORS.BLUE }, // Normal property now
+  { id: 47, name: "Orbital Shuttle", type: TileType.PROPERTY, price: 400, baseRent: 50, colorGroup: COLORS.BLUE }, 
 ];
