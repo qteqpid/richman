@@ -9,7 +9,8 @@ export enum TileType {
   BANK = 'BANK',
   HOSPITAL = 'HOSPITAL',
   SHOPPING = 'SHOPPING',
-  AIRPORT = 'AIRPORT'
+  AIRPORT = 'AIRPORT',
+  STOCK_MARKET = 'STOCK_MARKET'
 }
 
 export enum PlayerType {

@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Tile as TileType, TileType as EnumTileType, Player } from '../types';
 import { 
   Home, MapPin, AlertCircle, DollarSign, Lock, Zap, Car, Skull, HelpCircle, Database, Siren, Building2, Activity, User, Cpu, Bot, Smile, Crown, Rocket, Ghost, Gamepad2,
-  BookOpen, Utensils, PawPrint, GraduationCap, Library, Flame, Shield, Fish, Clapperboard, Landmark, ShoppingBag, Dumbbell, Ticket, Bed, Plane, Coffee, Train, Music, Pill
+  BookOpen, Utensils, PawPrint, GraduationCap, Library, Flame, Shield, Fish, Clapperboard, Landmark, ShoppingBag, Dumbbell, Ticket, Bed, Plane, Coffee, Train, Music, Pill, TrendingUp
 } from 'lucide-react';
 
 interface TileProps {
@@ -25,6 +25,7 @@ const Tile: React.FC<TileProps> = ({ tile, playersOnTile, isCurrentTarget, owner
     // Ensure Mall gets Bag even if type changed
     if (tile.type === EnumTileType.SHOPPING) return <ShoppingBag className="text-pink-400" size={16} />;
     if (tile.type === EnumTileType.AIRPORT) return <Plane className="text-sky-300" size={16} />;
+    if (tile.type === EnumTileType.STOCK_MARKET) return <TrendingUp className="text-purple-400" size={16} />;
 
     if (name.includes("book")) return <BookOpen className="text-amber-300" size={16} />;
     if (name.includes("burger") || name.includes("bakery")) return <Utensils className="text-orange-400" size={16} />;
@@ -122,6 +123,14 @@ const Tile: React.FC<TileProps> = ({ tile, playersOnTile, isCurrentTarget, owner
               linear-gradient(180deg, #001a33 0%, #000000 100%),
               repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(0, 191, 255, 0.1) 20px, rgba(0, 191, 255, 0.1) 22px)
             `
+        };
+      case EnumTileType.STOCK_MARKET:
+        return {
+            background: `
+              linear-gradient(135deg, #1a0a1a 0%, #000000 100%),
+              repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(189, 0, 255, 0.1) 10px, rgba(189, 0, 255, 0.1) 11px)
+            `,
+            boxShadow: 'inset 0 0 15px rgba(189, 0, 255, 0.1)'
         };
       case EnumTileType.PARKING:
         return {
