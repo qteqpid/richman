@@ -139,3 +139,22 @@ export const playMoneyGain = () => {
     console.error("Audio error", e);
   }
 };
+
+export const speakText = (text: string) => {
+  try {
+    if ('speechSynthesis' in window) {
+      // Cancel any ongoing speech to prevent queue buildup
+      window.speechSynthesis.cancel();
+      
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US'; 
+      utterance.volume = 1.0;
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      
+      window.speechSynthesis.speak(utterance);
+    }
+  } catch (e) {
+    console.error("Speech synthesis error", e);
+  }
+};

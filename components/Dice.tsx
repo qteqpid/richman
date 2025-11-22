@@ -1,31 +1,28 @@
+
 import React, { useEffect, useState } from 'react';
 
 interface DiceProps {
-  values: [number, number];
+  value: number;
   rolling: boolean;
 }
 
-const Dice: React.FC<DiceProps> = ({ values, rolling }) => {
-  const [displayValues, setDisplayValues] = useState(values);
+const Dice: React.FC<DiceProps> = ({ value, rolling }) => {
+  const [displayValue, setDisplayValue] = useState(value);
 
   useEffect(() => {
     if (!rolling) {
-      setDisplayValues(values);
+      setDisplayValue(value);
     } else {
       const interval = setInterval(() => {
-        setDisplayValues([
-            Math.floor(Math.random() * 6) + 1,
-            Math.floor(Math.random() * 6) + 1
-        ]);
+        setDisplayValue(Math.floor(Math.random() * 6) + 1);
       }, 100);
       return () => clearInterval(interval);
     }
-  }, [rolling, values]);
+  }, [rolling, value]);
 
   return (
-    <div className="flex gap-4 justify-center py-4">
-      <Die value={displayValues[0]} rolling={rolling} />
-      <Die value={displayValues[1]} rolling={rolling} />
+    <div className="flex justify-center py-4">
+      <Die value={displayValue} rolling={rolling} />
     </div>
   );
 };
@@ -43,7 +40,7 @@ const Die: React.FC<{ value: number; rolling: boolean }> = ({ value, rolling }) 
       5: ['row-start-1 col-start-1', 'row-start-1 col-start-3', 'row-start-2 col-start-2', 'row-start-3 col-start-1', 'row-start-3 col-start-3'],
       6: ['row-start-1 col-start-1', 'row-start-1 col-start-3', 'row-start-2 col-start-1', 'row-start-2 col-start-3', 'row-start-3 col-start-1', 'row-start-3 col-start-3'],
     };
-    return positions[val][index];
+    return positions[val] ? positions[val][index] : '';
   };
 
   return (
